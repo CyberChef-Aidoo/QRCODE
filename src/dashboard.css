@@ -83,8 +83,7 @@
 
 .field-label input,
 .field-label select,
-.date-row input,
-.login-card input {
+.date-row input {
   min-height: 44px;
   padding: 0.4rem 0.6rem;
   border: 1px solid var(--border-strong);
@@ -94,7 +93,6 @@
   font: inherit;
 }
 
-.login-card,
 .setup-panel {
   display: grid;
   gap: 12px;

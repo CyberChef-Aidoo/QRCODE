@@ -141,10 +141,7 @@ function TrendTable({ trend }) {
 }
 
 export default function AudienceDashboard() {
-  const [phase, setPhase] = useState("session");
-  const [signInConfigured, setSignInConfigured] = useState(true);
-  const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
+  const [phase, setPhase] = useState("loading");
   const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [report, setReport] = useState(null);
   const [exportError, setExportError] = useState("");
@@ -165,10 +162,6 @@ export default function AudienceDashboard() {
       credentials: "same-origin",
     });
     if (requestId !== requestRef.current) {
-      return;
-    }
-    if (response.status === 401) {
-      setPhase("login");
       return;
     }
     if (response.status === 502) {
@@ -203,73 +196,18 @@ export default function AudienceDashboard() {
   }
 
   useEffect(() => {
-    let ignored = false;
-    fetch("/api/admin/session", { credentials: "same-origin" })
-      .then((response) => response.json())
-      .then((body) => {
-        if (ignored) {
-          return;
-        }
-        setSignInConfigured(body.signInConfigured !== false);
-        if (!body.authenticated) {
-          setPhase("login");
-          return;
-        }
-        if (filtersReady(INITIAL_FILTERS)) {
-          load(INITIAL_FILTERS, { preserve: false });
-        }
-      })
-      .catch(() => {
-        if (!ignored) {
-          setPhase("error");
-        }
-      });
-    return () => {
-      ignored = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (phase === "login" || phase === "session") {
-      return;
-    }
     if (!filtersReady(filters)) {
       return;
     }
     load(filters, { preserve: false });
-    // The first authenticated load is started from the session check.
-    // Later filter edits start a new authorised request.
+    // Reload when the selected range, timezone, or campaign changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters.preset, filters.timeZone, filters.from, filters.to, filters.campaign]);
-
-  async function onLogin(event) {
-    event.preventDefault();
-    setLoginError("");
-    const response = await fetch("/api/admin/login", {
-      method: "POST",
-      credentials: "same-origin",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
-    });
-    if (!response.ok) {
-      setLoginError("The password was not accepted.");
-      return;
-    }
-    setPassword("");
-    load(filters, { preserve: false });
-  }
-
-  async function onLogout() {
-    await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" });
-    reportRef.current = null;
-    setReport(null);
-    setPhase("login");
-  }
 
   function onExport() {
     const current = reportRef.current;
     if (!current || current.status === "unconfigured" || current.status === "error") {
-      setExportError("There is no authorised report to export.");
+      setExportError("There is no report to export.");
       return;
     }
     const csv = buildAudienceCsv(current);
@@ -294,39 +232,9 @@ export default function AudienceDashboard() {
             Channel button clicks for the selected range. A click is not a subscription or a follow.
           </p>
         </div>
-        {phase !== "login" && phase !== "session" ? (
-          <button type="button" className="text-button" onClick={onLogout}>
-            Sign out
-          </button>
-        ) : null}
       </header>
 
-      {phase === "login" || phase === "session" ? (
-        <form className="card login-card" onSubmit={onLogin}>
-          <h2>Staff sign-in</h2>
-          {phase === "session" ? <p>Checking staff access.</p> : null}
-          {signInConfigured ? null : (
-            <p>Staff sign-in is not configured on the server.</p>
-          )}
-          <label className="field-label" htmlFor="staff-password">
-            Password
-          </label>
-          <input
-            id="staff-password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <button type="submit" className="check-button">
-            Sign in
-          </button>
-          {loginError ? (
-            <p role="alert">{loginError}</p>
-          ) : null}
-        </form>
-      ) : (
-        <>
+      <>
           <div className="dashboard-toolbar">
             <div className="range-row" role="group" aria-label="Date range">
               {PRESETS.map((item) => (
@@ -450,8 +358,8 @@ export default function AudienceDashboard() {
           >
             <summary>Analytics setup</summary>
             <p>
-              The stats key stays on the server. This page does not receive it. Set ADMIN_PASSWORD,
-              PLAUSIBLE_DOMAIN, and PLAUSIBLE_API_KEY in the server environment, then restart.
+              The stats key stays on the server. This page does not receive it. Set
+              PLAUSIBLE_DOMAIN and PLAUSIBLE_API_KEY in the server environment, then restart.
               The public landing page still uses VITE_PLAUSIBLE_DOMAIN only to load the counter script.
             </p>
             {missing.length > 0 ? (
@@ -466,8 +374,7 @@ export default function AudienceDashboard() {
               on that site.
             </p>
           </details>
-        </>
-      )}
+      </>
     </Layout>
   );
 }
