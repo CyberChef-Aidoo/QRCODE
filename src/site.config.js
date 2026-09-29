@@ -51,13 +51,16 @@ export const pageCopy = {
   heroText:
     "Clear explanations, worked examples, and exam support for accounting students.",
 
+  youtubeTitle: "YouTube channel",
   youtubeLabel: "Watch lessons on YouTube",
   youtubeCaption: "Clear explanations and worked examples.",
 
+  whatsappTitle: "WhatsApp channel",
   whatsappLabel: "Get updates on WhatsApp",
   whatsappCaption: "Short updates for accounting students.",
 
-  confirmLine: "You'll confirm on YouTube or WhatsApp.",
+  sharedNote:
+    "These buttons open the channel in a new tab. On YouTube, tap Subscribe yourself. On WhatsApp, tap Follow yourself.",
 
   aboutHeading: "About Duahbed Consult",
   aboutText:
@@ -83,20 +86,9 @@ export const pageCopy = {
   },
   quizCheckLabel: "Check answer",
   quizChooseFirst: "Choose Increase, Decrease, or Stay the same, then check your answer.",
-
-  resourcesHeading: "What is on this page",
-  resourcesIntro:
-    "There is no separate lesson list here. These are the channel links and the one practice question already on this page.",
-  youtubeResourceTitle: "YouTube channel",
-  youtubeResourceText:
-    "Open the linked YouTube channel for explanations and worked examples.",
-  whatsappResourceTitle: "WhatsApp channel",
-  whatsappResourceText:
-    "Open the linked WhatsApp channel for short updates.",
-  whatsappMissingText: "A WhatsApp link has not been added yet.",
-  practiceResourceTitle: "Practice question",
-  practiceResourceText:
-    "One question on this page: what happens to total assets when a business buys equipment for cash.",
+  quizSelectedLabel: "Selected",
+  quizCorrectLabel: "Correct",
+  quizIncorrectLabel: "Incorrect",
 };
 
 /** Name used on the page when the setting above is blank. */

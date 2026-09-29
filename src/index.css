@@ -1,32 +1,4 @@
-:root {
-  --ink: #100470;
-  --ink-soft: #3a3778;
-  --paper: #f3f4fb;
-  --card: #ffffff;
-  --line: #d5d8ef;
-  --navy: #100470;
-  --blue: #024bba;
-  --blue-hover: #100470;
-  --yellow: #f4fc11;
-  --red: #eb061a;
-  --green: #12d718;
-  --youtube: #eb061a;
-  --youtube-hover: #c10516;
-  --whatsapp: #12d718;
-  --whatsapp-hover: #0eb314;
-  --disabled-bg: #e4e6f4;
-  --disabled-ink: #100470;
-  --disabled-border: #b9bdd8;
-  --focus: #100470;
-  color-scheme: light;
-  font-family: "Segoe UI", system-ui, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--ink);
-  background: var(--paper);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-}
+@import "./styles/tokens.css";
 
 *,
 *::before,
@@ -37,10 +9,10 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--paper);
+  background: var(--bg);
   font-size: 17px;
   line-height: 1.5;
-  color: var(--ink);
+  color: var(--text);
 }
 
 button,
@@ -58,7 +30,9 @@ p {
 
 h1,
 h2,
+h3,
 .org-name {
+  color: var(--heading);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
@@ -81,6 +55,12 @@ h3 {
   font-size: 1.15rem;
 }
 
+:focus-visible,
+.skip-link:focus {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .page {
   min-height: 100vh;
   overflow-x: clip;
@@ -93,8 +73,8 @@ h3 {
   top: -4rem;
   z-index: 2;
   padding: 0.6rem 0.8rem;
-  background: #fff;
-  color: var(--ink);
+  background: var(--card);
+  color: var(--heading);
   font-weight: 700;
 }
 
@@ -122,7 +102,7 @@ h3 {
 .brand-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space);
   width: min(100%, 36rem);
   margin: 0 auto;
 }
@@ -143,6 +123,7 @@ h3 {
 .org-name {
   width: auto;
   margin: 0;
+  color: #fff;
   font-size: 1.15rem;
   line-height: 1.2;
   text-transform: uppercase;
@@ -153,63 +134,104 @@ h3 {
 .tagline {
   width: auto;
   margin: 4px 0 0;
+  color: #fff;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.3;
 }
 
-.sheet {
+.content {
+  display: grid;
+  gap: 16px;
   width: min(calc(100vw - 24px), 36rem);
-  margin: 12px auto 24px;
-  padding: 14px 16px 20px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 1.25rem;
-  box-shadow: 0 18px 40px rgba(16, 4, 112, 0.14);
-}
-
-.lead {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.45;
-  color: var(--ink);
+  margin: 16px auto 24px;
 }
 
 .hero {
-  margin-bottom: 0.25rem;
+  margin: 0;
 }
 
-.panel {
-  margin-top: 2rem;
+.lead,
+.shared-note,
+.quiz-intro,
+.card p,
+.quiz-card p {
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--text);
 }
 
-.panel-intro {
-  margin-bottom: 1rem;
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px 16px;
 }
 
-.channel-stack {
+.platforms {
   display: grid;
-  gap: 12px;
-  margin-top: 12px;
+  gap: var(--space);
 }
 
-.channel-action {
+.platform-card {
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
 
-.channel-link {
+.platform-card--youtube {
+  --tone: var(--youtube);
+  --tone-hover: var(--youtube-hover);
+  --tone-active: var(--youtube-active);
+  --tone-soft: var(--youtube-soft);
+}
+
+.platform-card--whatsapp {
+  --tone: var(--whatsapp);
+  --tone-hover: var(--whatsapp-hover);
+  --tone-active: var(--whatsapp-active);
+  --tone-soft: var(--whatsapp-soft);
+}
+
+.platform-card__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.platform-card__heading h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.platform-card__icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--tone);
+  background: var(--tone-soft);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+
+.cta {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   width: 100%;
-  height: 52px;
-  min-height: 52px;
+  height: var(--control-height);
+  min-height: var(--control-height);
   padding: 0 14px;
-  border: 2px solid transparent;
+  border: 0;
   border-radius: 10px;
   color: #fff;
+  background: var(--tone);
   font-size: 17px;
   font-weight: 700;
   line-height: 1.2;
@@ -218,67 +240,36 @@ h3 {
   touch-action: manipulation;
 }
 
-.channel-icon {
-  width: 22px;
-  height: 22px;
-  flex: 0 0 22px;
+.cta:hover {
+  background: var(--tone-hover);
 }
 
-.channel-link--youtube {
-  background: #ff0000;
+.cta:active {
+  background: var(--tone-active);
 }
 
-.channel-link--whatsapp {
-  background: #25d366;
-  color: #fff;
-}
-
-.channel-caption {
-  margin: 0;
-  color: var(--ink);
-  font-size: 16px;
-  line-height: 1.35;
-}
-
-.confirm-line {
-  margin: 0;
-  color: #595959;
-  font-size: 16px;
-  line-height: 1.35;
-}
-
-.channel-link:disabled {
-  background: var(--disabled-bg);
+.cta:disabled,
+.cta:disabled:hover,
+.cta:disabled:active {
   color: var(--disabled-ink);
-  border-color: var(--disabled-border);
+  background: var(--disabled-bg);
   cursor: not-allowed;
 }
 
-.channel-link--youtube:hover,
-.channel-link--youtube:active {
-  background: #cc0000;
+.platform-card__status,
+.shared-note {
+  font-size: 16px;
+  line-height: 1.4;
 }
 
-.channel-link--whatsapp:hover,
-.channel-link--whatsapp:active {
-  background: #1aa84e;
+.quiz-card {
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--quiz-tint);
 }
 
-.channel-link:focus-visible {
-  outline: 3px solid #100470;
-  outline-offset: 3px;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.quiz-intro {
+  margin-bottom: 1rem;
 }
 
 .quiz-fieldset {
@@ -291,6 +282,7 @@ h3 {
 .quiz-fieldset legend {
   margin-bottom: 0.85rem;
   padding: 0;
+  color: var(--heading);
   font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.4;
@@ -304,26 +296,74 @@ h3 {
 .quiz-option {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.75rem;
   min-height: 3.5rem;
   padding: 0.75rem 1rem;
-  border: 2px solid #8b90b8;
+  border: 1px solid var(--border-strong);
   border-radius: 0.9rem;
-  background: #fff;
+  background: var(--card);
+  color: var(--text);
   cursor: pointer;
-}
-
-.quiz-option:has(input:checked) {
-  border-color: var(--navy);
-  background: #eef0fb;
-  font-weight: 700;
 }
 
 .quiz-option input {
   width: 1.25rem;
   height: 1.25rem;
   margin: 0;
-  accent-color: var(--navy);
+  accent-color: var(--heading);
+}
+
+.quiz-option:has(input:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.quiz-option input:focus-visible {
+  outline: none;
+}
+
+.quiz-option__label {
+  font-size: 17px;
+}
+
+.quiz-option[data-state="selected"] {
+  border-color: var(--heading);
+  background: var(--selected-bg);
+}
+
+.quiz-option[data-state="correct"] {
+  border-color: var(--correct);
+  background: var(--correct-bg);
+}
+
+.quiz-option[data-state="incorrect"] {
+  border-color: var(--incorrect);
+  background: var(--incorrect-bg);
+}
+
+.answer-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: auto;
+  color: var(--selected-ink);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.answer-mark--correct {
+  color: var(--correct-ink);
+}
+
+.answer-mark--incorrect {
+  color: var(--incorrect-ink);
+}
+
+.answer-mark .icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-basis: 1.15rem;
 }
 
 .check-button {
@@ -333,103 +373,58 @@ h3 {
   padding: 0.75rem 1rem;
   color: #fff;
   background: var(--navy);
-  border: 2px solid var(--navy);
+  border: 0;
   border-radius: 0.9rem;
   font-size: 1.1rem;
   font-weight: 700;
   touch-action: manipulation;
 }
 
+.check-button:hover,
+.check-button:active {
+  background: var(--blue);
+}
+
 .quiz-feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
   min-height: 1.5rem;
   margin-top: 0.9rem;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.quiz-feedback .icon {
+  margin-top: 0.15rem;
 }
 
 .quiz-feedback--correct,
-.quiz-feedback--retry {
+.quiz-feedback--incorrect,
+.quiz-feedback--empty {
   padding: 0.85rem 0.95rem;
   border-radius: 0.85rem;
   font-weight: 600;
 }
 
 .quiz-feedback--correct {
-  color: #06320f;
-  background: #dff6e4;
-  border: 1px solid #1d7a32;
+  color: var(--correct-ink);
+  background: var(--correct-bg);
 }
 
-.quiz-feedback--retry {
-  color: var(--navy);
-  background: #fff6d8;
-  border: 1px solid #8a7a10;
+.quiz-feedback--incorrect {
+  color: var(--incorrect-ink);
+  background: var(--incorrect-bg);
 }
 
-.resource-list {
-  display: grid;
-  gap: 0.85rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.resource-card {
-  padding: 1rem;
-  border: 1px solid var(--line);
-  border-radius: 0.9rem;
-  background: #f7f8fd;
-}
-
-.resource-card p {
-  margin-bottom: 0.55rem;
-}
-
-.resource-card a {
-  color: var(--blue);
-  font-weight: 700;
-}
-
-.channel-link:focus-visible,
-.quiz-option:has(input:focus-visible),
-.check-button:focus-visible,
-.resource-card a:focus-visible,
-.skip-link:focus {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
-}
-
-@media (hover: hover) {
-  .channel-link--youtube:hover {
-    background: #cc0000;
-  }
-
-  .channel-link--whatsapp:hover {
-    background: #1aa84e;
-  }
-
-  .check-button:hover,
-  .check-button:active {
-    background: var(--blue);
-    border-color: var(--blue);
-  }
-}
-
-.channel-link:disabled,
-.channel-link:disabled:hover,
-.channel-link:disabled:active {
-  background: var(--disabled-bg);
-  color: var(--disabled-ink);
-}
-
-.channel-link--youtube:active {
-  background: #a30000;
-}
-
-.channel-link--whatsapp:active {
-  background: #128a3e;
+.quiz-feedback--empty {
+  color: var(--heading);
+  background: var(--card);
 }
 
 @media (min-width: 48rem) {
-  .sheet {
-    padding: 18px 22px 24px;
+  .card,
+  .quiz-card {
+    padding: 18px 20px;
   }
 }

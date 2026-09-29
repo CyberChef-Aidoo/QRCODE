@@ -40,7 +40,7 @@ export default function Layout({ organisationName, children }) {
           </div>
         </div>
       </header>
-      <main id="main" className="sheet">
+      <main id="main" className="content">
         {children}
       </main>
     </div>
