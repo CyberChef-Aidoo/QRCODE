@@ -1,14 +1,20 @@
-function ExternalIcon() {
+import { channelLinkState } from "../lib/urls.js";
+import { pageCopy, siteConfig } from "../site.config.js";
+
+function PlayIcon() {
   return (
-    <svg
-      className="external-icon"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      focusable="false"
-    >
+    <svg className="channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M8 5.1v13.8L19.2 12 8 5.1z" />
+    </svg>
+  );
+}
+
+function ChatIcon() {
+  return (
+    <svg className="channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
         fill="currentColor"
-        d="M14 5h5v5h-2V8.4l-7.3 7.3-1.4-1.4L15.6 7H14V5zM6 7h5v2H8v9h9v-3h2v5H6V7z"
+        d="M5 4h14a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2H9.2L5 20.2V6a2 2 0 0 1 2-2z"
       />
     </svg>
   );
@@ -22,41 +28,71 @@ function unavailableMessage(state) {
   return "This link is not ready yet. It needs a full https:// address.";
 }
 
-export default function ChannelLink({ id, label, benefit, tone, state }) {
-  const benefitId = `${id}-benefit`;
-  const descriptionId = `${id}-status`;
+function ChannelLink({ id, label, caption, tone, state, icon }) {
+  const captionId = `${id}-caption`;
+  const Icon = icon;
 
-  return (
-    <div className="channel-action">
-      <p id={benefitId} className="channel-benefit">
-        {benefit}
-      </p>
-      {state.status !== "ready" ? (
+  if (state.status !== "ready") {
+    return (
+      <div className="channel-action">
         <button
           type="button"
           className={`channel-link channel-link--${tone}`}
           disabled
-          aria-describedby={descriptionId}
+          aria-describedby={captionId}
         >
-          <span className="channel-link__label">{label}</span>
+          <Icon />
+          <span>{label}</span>
         </button>
-      ) : (
-        <a
-          className={`channel-link channel-link--${tone}`}
-          href={state.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-describedby={descriptionId}
-        >
-          <span className="channel-link__label">{label}</span>
-          <ExternalIcon />
-        </a>
-      )}
-      <p id={descriptionId} className="channel-status">
-        {state.status === "ready"
-          ? `Opens ${state.hostname} in a new tab.`
-          : unavailableMessage(state)}
+        <p id={captionId} className="channel-caption">
+          {unavailableMessage(state)}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="channel-action">
+      <a
+        className={`channel-link channel-link--${tone}`}
+        href={state.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-describedby={captionId}
+      >
+        <Icon />
+        <span>{label}</span>
+      </a>
+      <p id={captionId} className="channel-caption">
+        {caption}
       </p>
+    </div>
+  );
+}
+
+export default function ChannelStack({ idPrefix }) {
+  const youtube = channelLinkState(siteConfig.youtubeChannelUrl);
+  const whatsapp = channelLinkState(siteConfig.whatsappChannelUrl);
+
+  return (
+    <div className="channel-stack">
+      <ChannelLink
+        id={`${idPrefix}-youtube`}
+        label={pageCopy.youtubeLabel}
+        caption={pageCopy.youtubeCaption}
+        tone="youtube"
+        state={youtube}
+        icon={PlayIcon}
+      />
+      <ChannelLink
+        id={`${idPrefix}-whatsapp`}
+        label={pageCopy.whatsappLabel}
+        caption={pageCopy.whatsappCaption}
+        tone="whatsapp"
+        state={whatsapp}
+        icon={ChatIcon}
+      />
+      <p className="confirm-line">{pageCopy.confirmLine}</p>
     </div>
   );
 }

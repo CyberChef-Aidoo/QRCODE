@@ -1,34 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AccountingQuiz from "../components/AccountingQuiz.jsx";
-import ChannelLink from "../components/ChannelLink.jsx";
+import ChannelStack from "../components/ChannelLink.jsx";
 import Layout from "../components/Layout.jsx";
 import { channelLinkState } from "../lib/urls.js";
-import {
-  logoSrc,
-  organisationLabel,
-  pageCopy,
-  siteConfig,
-} from "../site.config.js";
-
-function OrganisationLogo({ src }) {
-  const [failed, setFailed] = useState(false);
-  if (!src || failed) {
-    return null;
-  }
-
-  return (
-    <img
-      className="logo"
-      src={src}
-      alt=""
-      width="1024"
-      height="1024"
-      decoding="async"
-      referrerPolicy="no-referrer"
-      onError={() => setFailed(true)}
-    />
-  );
-}
+import { organisationLabel, pageCopy, siteConfig } from "../site.config.js";
 
 function ResourceLink({ state, title, text, missingText }) {
   return (
@@ -74,30 +49,11 @@ export default function LandingPage() {
 
   return (
     <Layout organisationName={name}>
-      <OrganisationLogo src={logoSrc()} />
       <header className="hero">
         <h1>{pageCopy.heroHeading}</h1>
         <p className="lead">{pageCopy.heroText}</p>
       </header>
-      <section className="panel" aria-labelledby="channels-title">
-        <h2 id="channels-title">{pageCopy.channelsHeading}</h2>
-        <div className="actions">
-          <ChannelLink
-            id="youtube"
-            label={pageCopy.youtubeLabel}
-            benefit={pageCopy.youtubeBenefit}
-            tone="youtube"
-            state={youtube}
-          />
-          <ChannelLink
-            id="whatsapp"
-            label={pageCopy.whatsappLabel}
-            benefit={pageCopy.whatsappBenefit}
-            tone="whatsapp"
-            state={whatsapp}
-          />
-        </div>
-      </section>
+      <ChannelStack idPrefix="top" />
       <AccountingQuiz />
       <section className="panel" aria-labelledby="resources-title">
         <h2 id="resources-title">{pageCopy.resourcesHeading}</h2>
@@ -120,6 +76,13 @@ export default function LandingPage() {
             <a href="#practice">Go to the question</a>
           </li>
         </ul>
+      </section>
+      <section className="panel" aria-labelledby="about-title">
+        <h2 id="about-title">{pageCopy.aboutHeading}</h2>
+        <p>{pageCopy.aboutText}</p>
+      </section>
+      <section className="panel" aria-label="Channel links">
+        <ChannelStack idPrefix="bottom" />
       </section>
     </Layout>
   );

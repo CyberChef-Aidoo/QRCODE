@@ -49,17 +49,19 @@ export const siteConfig = {
 export const pageCopy = {
   heroHeading: "Make accounting make sense.",
   heroText:
-    "Get clear explanations, worked examples, and support for exam preparation. Open a channel when you want to study, or try the question further down the page.",
+    "Clear explanations, worked examples, and exam support for accounting students.",
 
-  youtubeLabel: "Subscribe on YouTube",
-  youtubeBenefit:
-    "YouTube is for clear explanations and worked examples you can pause and replay while you prepare for exams. This button only opens the channel. On YouTube, tap Subscribe yourself.",
+  youtubeLabel: "Watch lessons on YouTube",
+  youtubeCaption: "Clear explanations and worked examples.",
 
-  whatsappLabel: "Follow on WhatsApp",
-  whatsappBenefit:
-    "WhatsApp is for short updates alongside those lessons. This button only opens the channel. On WhatsApp, tap Follow yourself.",
+  whatsappLabel: "Get updates on WhatsApp",
+  whatsappCaption: "Short updates for accounting students.",
 
-  channelsHeading: "Choose a channel",
+  confirmLine: "You'll confirm on YouTube or WhatsApp.",
+
+  aboutHeading: "About Duahbed Consult",
+  aboutText:
+    "Duahbed Consult helps accounting students with clear explanations, worked examples, and exam support. Success is always assured.",
 
   quizTitle: "Try one question",
   quizIntro:
