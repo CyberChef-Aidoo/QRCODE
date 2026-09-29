@@ -34,7 +34,7 @@ Use a different `utm_campaign` value for each poster or classroom. In Plausible,
 
 `qr_landing_view` counts a tagged visit once per page load. The two click goals count button clicks only. Compare those clicks with channel growth using `reporting/daily-channel-totals.csv`. Subscriber and follower totals come from YouTube and WhatsApp. This site cannot fill in verified subscriptions.
 
-The staff click dashboard is a separate page: `/dashboard.html`. It is not linked from the student page. Set `VITE_PLAUSIBLE_API_KEY` to a read-only stats key to show clicked users there. A click on that page is still not a subscription.
+Staff open `/dashboard.html` and sign in with `ADMIN_PASSWORD`. That page is not linked from the student page. `PLAUSIBLE_DOMAIN` and `PLAUSIBLE_API_KEY` stay on the server. Do not put the stats key in a `VITE_` variable. A click is still not a subscription. Subscriber totals are not stored here.
 
 ## Run on your computer
 

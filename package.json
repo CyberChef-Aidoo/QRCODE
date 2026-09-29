@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node --test src/lib/urls.test.js src/lib/analytics.test.js src/lib/clickStats.test.js"
+    "start": "node --env-file-if-exists=.env server/start.mjs",
+    "test": "node --test src/lib/urls.test.js src/lib/analytics.test.js src/lib/reportRange.test.js src/lib/audienceCsv.test.js server/audienceReport.test.js server/createApi.test.js"
   },
   "dependencies": {
     "react": "^19.2.8",
