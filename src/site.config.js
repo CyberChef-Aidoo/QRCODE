@@ -30,6 +30,7 @@ export const siteConfig = {
    * YouTube channel link.
    * Example: "https://www.youtube.com/@YourChannel"
    * Leave as "" to disable the YouTube button.
+   * Do not add campaign parameters here. Those belong on the QR landing address.
    */
   youtubeChannelUrl: "https://youtube.com/@duahbedconsult?si=r7O6R8kavlN6sQl9",
 

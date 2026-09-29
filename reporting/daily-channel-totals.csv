@@ -1,0 +1,2 @@
+date,youtube_subscribers_total,youtube_net_change,whatsapp_followers_total,whatsapp_net_change,verified_site_subscriptions,notes
+,,,,,,"Leave verified_site_subscriptions blank. Net change is the channel total today minus yesterday. It is not a verified subscription. A button click is not a subscription."

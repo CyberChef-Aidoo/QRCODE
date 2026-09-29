@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import AccountingQuiz from "../components/AccountingQuiz.jsx";
 import Layout from "../components/Layout.jsx";
 import PlatformCards from "../components/PlatformCard.jsx";
+import { trackTaggedLanding } from "../lib/analytics.js";
 import { organisationLabel, pageCopy } from "../site.config.js";
 
 export default function LandingPage() {
@@ -10,6 +11,10 @@ export default function LandingPage() {
   useEffect(() => {
     document.title = `${name} — ${pageCopy.heroHeading}`;
   }, [name]);
+
+  useEffect(() => {
+    trackTaggedLanding(window.location.search);
+  }, []);
 
   return (
     <Layout organisationName={name}>

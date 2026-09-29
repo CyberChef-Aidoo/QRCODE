@@ -1,4 +1,5 @@
 import { useEffect, useId } from "react";
+import { trackChannelClick } from "../lib/analytics.js";
 import { channelLinkState } from "../lib/urls.js";
 import { pageCopy, siteConfig } from "../site.config.js";
 import { ChatIcon, PlayIcon } from "./icons.jsx";
@@ -32,6 +33,7 @@ function PlatformCard({ title, benefit, label, tone, state, icon: Icon }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-describedby="channel-note"
+          onClick={() => trackChannelClick(tone, window.location.search)}
         >
           {label}
         </a>
