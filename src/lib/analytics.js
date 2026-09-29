@@ -4,8 +4,8 @@
  * Nothing here sends a name, an email, or a device fingerprint.
  */
 
-const LANDING_EVENT = "qr_landing_view";
-const CLICK_EVENTS = {
+export const LANDING_EVENT = "qr_landing_view";
+export const CLICK_EVENTS = {
   youtube: "youtube_channel_click",
   whatsapp: "whatsapp_channel_click",
 };

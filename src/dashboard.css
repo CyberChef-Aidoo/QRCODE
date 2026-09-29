@@ -1,0 +1,64 @@
+.range-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.range-button {
+  min-height: 44px;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--heading);
+  font-weight: 700;
+}
+
+.range-button[aria-pressed="true"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+.stat-grid {
+  display: grid;
+  gap: var(--space);
+}
+
+.stat-card h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.stat-value {
+  margin: 0;
+  color: var(--heading);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  margin-top: 0.35rem;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.stat-clicks,
+.dashboard-note,
+.dashboard-note-card p {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.dashboard-note-card h2 {
+  font-size: 1.15rem;
+}
+
+@media (min-width: 40rem) {
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
