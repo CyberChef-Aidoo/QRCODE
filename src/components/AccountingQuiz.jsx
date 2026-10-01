@@ -1,4 +1,5 @@
 import { useId, useState } from "react";
+import { pickQuizQuestion } from "../lib/quiz.js";
 import { pageCopy } from "../site.config.js";
 import { CheckIcon, CrossIcon, SelectedIcon } from "./icons.jsx";
 
@@ -25,23 +26,33 @@ function AnswerMark({ type }) {
 
 export default function AccountingQuiz() {
   const groupName = useId();
+  const [question, setQuestion] = useState(() => pickQuizQuestion(pageCopy.quizQuestions));
   const [selected, setSelected] = useState("");
   const [result, setResult] = useState(null);
+  const [notice, setNotice] = useState("");
 
   function onSubmit(event) {
     event.preventDefault();
+    setNotice("");
     if (!selected) {
       setResult({ status: "empty" });
       return;
     }
 
-    const correct = selected === pageCopy.correctOptionId;
+    const correct = selected === question.correctOptionId;
     setResult({ status: correct ? "correct" : "incorrect", selected });
+  }
+
+  function showAnother() {
+    setQuestion(pickQuizQuestion(pageCopy.quizQuestions, question.id));
+    setSelected("");
+    setResult(null);
+    setNotice("Next question.");
   }
 
   function markFor(optionId) {
     if (result && result.status !== "empty") {
-      if (optionId === pageCopy.correctOptionId) {
+      if (optionId === question.correctOptionId) {
         return "correct";
       }
       if (optionId === result.selected) {
@@ -57,8 +68,8 @@ export default function AccountingQuiz() {
     result?.status === "empty"
       ? pageCopy.quizChooseFirst
       : result
-        ? `${pageCopy.quizFeedback[result.selected] || "Check that answer again."} ${pageCopy.quizExplanation}`
-        : "";
+        ? `${question.feedback[result.selected] || "Check that answer again."} ${question.explanation}`
+        : notice;
 
   const feedbackClass =
     result?.status === "correct" || result?.status === "incorrect" || result?.status === "empty"
@@ -70,8 +81,8 @@ export default function AccountingQuiz() {
       <h2 id="quiz-title">{pageCopy.quizTitle}</h2>
       <p className="quiz-intro">{pageCopy.quizIntro}</p>
       <form onSubmit={onSubmit}>
-        <fieldset className="quiz-fieldset">
-          <legend>{pageCopy.quizQuestion}</legend>
+        <fieldset className="quiz-fieldset" key={question.id}>
+          <legend>{question.question}</legend>
           <div className="quiz-options">
             {pageCopy.quizOptions.map((option) => {
               const mark = markFor(option.id);
@@ -85,6 +96,7 @@ export default function AccountingQuiz() {
                     onChange={() => {
                       setSelected(option.id);
                       setResult(null);
+                      setNotice("");
                     }}
                   />
                   <span className="quiz-option__label">{option.label}</span>
@@ -97,6 +109,11 @@ export default function AccountingQuiz() {
         <button type="submit" className="check-button">
           {pageCopy.quizCheckLabel}
         </button>
+        {pageCopy.quizQuestions.length > 1 ? (
+          <button type="button" className="quiz-next" onClick={showAnother}>
+            {pageCopy.quizAnotherLabel}
+          </button>
+        ) : null}
       </form>
       <p className={feedbackClass} role="status" aria-live="polite" aria-atomic="true">
         {result?.status === "correct" ? <CheckIcon /> : null}

@@ -44,8 +44,8 @@ export const siteConfig = {
 
 /**
  * Words shown on the landing page.
- * The quiz answer key is correctOptionId. Options use the ids increase,
- * decrease, and same.
+ * Practice questions are quizQuestions. Each one uses the option ids
+ * increase, decrease, and same. correctOptionId is the answer for that question.
  */
 export const pageCopy = {
   heroHeading: "Make accounting make sense.",
@@ -70,22 +70,86 @@ export const pageCopy = {
   quizTitle: "Try one question",
   quizIntro:
     "This is optional. Your answer stays on this page. You do not sign in, and nothing is saved.",
-  quizQuestion:
-    "A business buys equipment for cash. What happens to its total assets?",
   quizOptions: [
     { id: "increase", label: "Increase" },
     { id: "decrease", label: "Decrease" },
     { id: "same", label: "Stay the same" },
   ],
-  correctOptionId: "same",
-  quizExplanation:
-    "Equipment increases and cash decreases by the same amount, so total assets stay the same.",
-  quizFeedback: {
-    same: "Yes. Total assets stay the same.",
-    increase: "Not this time. Total assets do not increase.",
-    decrease: "Not this time. Total assets do not decrease.",
-  },
+  quizQuestions: [
+    {
+      id: "equipment-cash",
+      question: "A business buys equipment for cash. What happens to its total assets?",
+      correctOptionId: "same",
+      explanation:
+        "Equipment increases and cash decreases by the same amount, so total assets stay the same.",
+      feedback: {
+        same: "Yes. Total assets stay the same.",
+        increase: "Not this time. Total assets do not increase.",
+        decrease: "Not this time. Total assets do not decrease.",
+      },
+    },
+    {
+      id: "owner-cash",
+      question: "The owner pays cash into the business. What happens to its total assets?",
+      correctOptionId: "increase",
+      explanation: "Cash increases and no asset decreases, so total assets increase.",
+      feedback: {
+        increase: "Yes. Total assets increase.",
+        same: "Not this time. Total assets do not stay the same.",
+        decrease: "Not this time. Total assets do not decrease.",
+      },
+    },
+    {
+      id: "pay-supplier",
+      question:
+        "A business pays cash to a supplier for an amount it already owed. What happens to its total assets?",
+      correctOptionId: "decrease",
+      explanation: "Cash decreases and no other asset increases, so total assets decrease.",
+      feedback: {
+        decrease: "Yes. Total assets decrease.",
+        increase: "Not this time. Total assets do not increase.",
+        same: "Not this time. Total assets do not stay the same.",
+      },
+    },
+    {
+      id: "credit-inventory",
+      question: "A business buys inventory on credit. What happens to its total assets?",
+      correctOptionId: "increase",
+      explanation:
+        "Inventory increases and no asset decreases, so total assets increase. The amount owed is a liability.",
+      feedback: {
+        increase: "Yes. Total assets increase.",
+        same: "Not this time. Total assets do not stay the same.",
+        decrease: "Not this time. Total assets do not decrease.",
+      },
+    },
+    {
+      id: "collect-receivable",
+      question:
+        "A customer pays cash for an amount already owed to the business. What happens to its total assets?",
+      correctOptionId: "same",
+      explanation:
+        "Cash increases and the amount receivable decreases by the same amount, so total assets stay the same.",
+      feedback: {
+        same: "Yes. Total assets stay the same.",
+        increase: "Not this time. Total assets do not increase.",
+        decrease: "Not this time. Total assets do not decrease.",
+      },
+    },
+    {
+      id: "pay-rent",
+      question: "A business pays rent in cash. What happens to its total assets?",
+      correctOptionId: "decrease",
+      explanation: "Cash decreases and no other asset increases, so total assets decrease.",
+      feedback: {
+        decrease: "Yes. Total assets decrease.",
+        increase: "Not this time. Total assets do not increase.",
+        same: "Not this time. Total assets do not stay the same.",
+      },
+    },
+  ],
   quizCheckLabel: "Check answer",
+  quizAnotherLabel: "Try another question",
   quizChooseFirst: "Choose Increase, Decrease, or Stay the same, then check your answer.",
   quizSelectedLabel: "Selected",
   quizCorrectLabel: "Correct",

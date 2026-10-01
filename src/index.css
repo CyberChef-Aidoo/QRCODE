@@ -385,6 +385,25 @@ h3 {
   background: var(--blue);
 }
 
+.quiz-next {
+  width: 100%;
+  min-height: 3rem;
+  margin-top: 0.75rem;
+  padding: 0.65rem 1rem;
+  color: var(--heading);
+  background: var(--card);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+
+.quiz-next:hover,
+.quiz-next:active {
+  background: var(--selected-bg);
+}
+
 .quiz-feedback {
   display: flex;
   align-items: flex-start;
